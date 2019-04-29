@@ -15,6 +15,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author chentaikuang
+ */
 @RestController
 @RequestMapping("/user")
 public class User {

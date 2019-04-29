@@ -14,6 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Random;
 
+/**
+ * @author chentaikuang
+ */
 @RestController
 @RequestMapping("/resource")
 public class Resource {
