@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @RestController
 @RequestMapping("/user")
-public class User {
+public class UserCtlr {
 
     static ConcurrentHashMap userMap = new ConcurrentHashMap();
     static {

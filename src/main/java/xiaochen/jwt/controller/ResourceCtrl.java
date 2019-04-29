@@ -19,7 +19,7 @@ import java.util.Random;
  */
 @RestController
 @RequestMapping("/resource")
-public class Resource {
+public class ResourceCtrl {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
