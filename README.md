@@ -1,6 +1,6 @@
 # springboot2-jwt
 
-一、启动服务
+一、运行JwtApplication启动服务
 
 二、使用postman工具完成登录，获取到token
 POST http://localhost:8080/user/login
