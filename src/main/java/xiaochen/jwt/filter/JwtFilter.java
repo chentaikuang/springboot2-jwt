@@ -35,8 +35,8 @@ public class JwtFilter extends GenericFilterBean {
             throw new ServletException("no auth header");
         }
         final String token;
-        if (authHeader.contains("Bearer")) {
-            token = authHeader.substring(7);
+        if (authHeader.contains(Const.AUTH_HEADER_PREFIX_BEARER)) {
+            token = authHeader.substring(Const.AUTH_HEADER_PREFIX_BEARER.length());
         } else {
             token = authHeader;
         }

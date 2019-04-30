@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import xiaochen.jwt.common.Const;
-import xiaochen.jwt.result.RespRst;
+import xiaochen.jwt.common.RespRst;
+import xiaochen.jwt.common.StatusCodeEnum;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Random;
 
 /**
  * @author chentaikuang
@@ -31,7 +31,7 @@ public class ResourceCtrl {
         Claims claims = (Claims) request.getAttribute(Const.USER_CLAIMS_ATTR_KEY);
         logger.info("claims:{}", claims.toString());
         String sub = claims.getSubject();
-        RespRst result = new RespRst("200", "welcome", sub);
+        RespRst result = new RespRst(StatusCodeEnum.SUCCESS, sub);
         return result;
     }
 }

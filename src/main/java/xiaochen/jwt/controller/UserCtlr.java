@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import xiaochen.jwt.common.Const;
+import xiaochen.jwt.common.StatusCodeEnum;
 import xiaochen.jwt.req.UserReq;
-import xiaochen.jwt.result.RespRst;
+import xiaochen.jwt.common.RespRst;
 
 import javax.servlet.ServletException;
 import java.util.Calendar;
@@ -23,16 +24,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UserCtlr {
 
     static ConcurrentHashMap userMap = new ConcurrentHashMap();
+
     static {
         //init test User
-        userMap.put("ctk","123456");
+        userMap.put("ctk", "123456");
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public RespRst register(@RequestBody() UserReq userReq) throws ServletException {
         // save new User
         userMap.put(userReq.getName(), userReq.getPsw());
-        RespRst result = new RespRst("200", "ok", "");
+        RespRst result = new RespRst(StatusCodeEnum.SUCCESS);
         return result;
     }
 
@@ -47,9 +49,9 @@ public class UserCtlr {
         if (nameEq && pwsEq) {
             String jwtToken = Jwts.builder().setSubject(userReq.getName()).claim("roles", "guest").setIssuedAt(new Date())
                     .setExpiration(atTomorrow()).signWith(SignatureAlgorithm.HS256, Const.JWT_KEY).compact();
-            result = new RespRst("200", "ok", jwtToken);
+            result = new RespRst(StatusCodeEnum.SUCCESS, jwtToken);
         } else {
-            result = new RespRst("304", "no auth", "");
+            result = new RespRst(StatusCodeEnum.NO_AUTH);
         }
         return result;
     }
