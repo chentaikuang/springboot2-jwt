@@ -11,8 +11,8 @@ public class DateUtil {
     public static Date atTomorrow() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, 1);
-//        calendar.add(Calendar.SECOND,20);
+//        calendar.add(Calendar.DATE, 1);
+        calendar.add(Calendar.MINUTE,2);
         return calendar.getTime();
     }
 }

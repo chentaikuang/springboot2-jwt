@@ -1,11 +1,14 @@
 package xiaochen.jwt.filter;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 import xiaochen.jwt.common.Const;
 import xiaochen.jwt.common.StatusCodeEnum;
+import xiaochen.jwt.util.TokenConvertUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -35,15 +38,24 @@ public class JwtFilter extends GenericFilterBean {
         if (StringUtils.isEmpty(authHeader)) {
             throw new ServletException(StatusCodeEnum.NO_AUTH_HEADER.getMsg());
         }
-        final String token;
+        String shortToken;
         if (authHeader.contains(Const.AUTH_HEADER_PREFIX_BEARER)) {
-            token = authHeader.substring(Const.AUTH_HEADER_PREFIX_BEARER.length());
+            shortToken = authHeader.substring(Const.AUTH_HEADER_PREFIX_BEARER.length());
         } else {
-            token = authHeader;
+            shortToken = authHeader;
         }
-        final Claims userClaims = Jwts.parser().setSigningKey(Const.JWT_KEY).parseClaimsJws(token).getBody();
-        request.setAttribute(Const.USER_CLAIMS_ATTR_KEY, userClaims);
-
+        String token = TokenConvertUtil.getLongToken(shortToken);
+        Assert.notNull(token, StatusCodeEnum.CONVERT_TOKEN_NULL.getMsg());
+        try {
+            final Claims userClaims = Jwts.parser().setSigningKey(Const.JWT_KEY).parseClaimsJws(token).getBody();
+            request.setAttribute(Const.USER_CLAIMS_ATTR_KEY, userClaims);
+        } catch (Exception e) {
+            //捕获token已失效，删除token map
+            if (e instanceof ExpiredJwtException) {
+                int code = TokenConvertUtil.rmToken(shortToken);
+                Assert.isTrue(StatusCodeEnum.SUCCESS.getCode() != code, StatusCodeEnum.EXPIRED_EXCEPTION.getMsg());
+            }
+        }
         chain.doFilter(req, res);
     }
 }

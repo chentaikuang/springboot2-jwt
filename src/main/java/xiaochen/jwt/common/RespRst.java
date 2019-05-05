@@ -26,8 +26,6 @@ public class RespRst<T> {
     public RespRst(StatusCodeEnum statusCodeEnum, T... data) {
         this.code = statusCodeEnum.getCode();
         this.msg = statusCodeEnum.getMsg();
-        System.out.println(data);
-        System.out.println(data.length);
         if (data != null && data.length > 0) {
             this.data = data[0];
         }

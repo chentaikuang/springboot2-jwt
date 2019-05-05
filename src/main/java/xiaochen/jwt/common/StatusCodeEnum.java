@@ -6,7 +6,8 @@ package xiaochen.jwt.common;
 
 public enum StatusCodeEnum {
 
-    SUCCESS(200, "success"), NO_AUTH(400003, "no auth"), NO_AUTH_HEADER(400004, "no auth header"), NO_EXIST_USER(400005, "用户不存在");
+    SUCCESS(200, "success"), NO_AUTH(400003, "no auth"), NO_AUTH_HEADER(400004, "no auth header"), NO_EXIST_USER(400005, "用户不存在"),
+    CONVERT_TOKEN_NULL(400006, "获取令牌为空"), EXPIRED_EXCEPTION(400007, "令牌已失效");
 
 
     private int code;
