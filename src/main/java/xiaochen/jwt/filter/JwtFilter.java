@@ -47,7 +47,7 @@ public class JwtFilter extends GenericFilterBean {
         String token = TokenConvertUtil.getLongToken(shortToken);
         Assert.notNull(token, StatusCodeEnum.CONVERT_TOKEN_NULL.getMsg());
         try {
-            final Claims userClaims = Jwts.parser().setSigningKey(Const.JWT_KEY).parseClaimsJws(token).getBody();
+            final Claims userClaims = Jwts.parser().setSigningKey(Const.JWT_SIGN_KEY).parseClaimsJws(token).getBody();
             request.setAttribute(Const.USER_CLAIMS_ATTR_KEY, userClaims);
         } catch (Exception e) {
             //捕获token已失效，删除token map

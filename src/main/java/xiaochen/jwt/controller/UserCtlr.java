@@ -70,7 +70,7 @@ public class UserCtlr {
 
         if (isExistUser(nameEq, pwsEq)) {
             String jwtToken = Jwts.builder().setSubject(userReq.getName()).claim(Const.ROLES_NAME_STR, Const.ROLES_GUEST).setIssuedAt(new Date())
-                    .setExpiration(DateUtil.atTomorrow()).signWith(SignatureAlgorithm.HS256, Const.JWT_KEY).compact();
+                    .setExpiration(DateUtil.atTomorrow()).signWith(SignatureAlgorithm.HS256, Const.JWT_SIGN_KEY).compact();
             result = new RespRst(StatusCodeEnum.SUCCESS, TokenConvertUtil.getShortToken(jwtToken));
         } else {
             result = new RespRst(StatusCodeEnum.NO_AUTH);
