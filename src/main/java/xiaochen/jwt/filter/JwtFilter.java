@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 import xiaochen.jwt.common.Const;
+import xiaochen.jwt.common.StatusCodeEnum;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -32,7 +33,7 @@ public class JwtFilter extends GenericFilterBean {
 
         final String authHeader = request.getHeader(Const.REQ_TOKEN);
         if (StringUtils.isEmpty(authHeader)) {
-            throw new ServletException("no auth header");
+            throw new ServletException(StatusCodeEnum.NO_AUTH_HEADER.getMsg());
         }
         final String token;
         if (authHeader.contains(Const.AUTH_HEADER_PREFIX_BEARER)) {
