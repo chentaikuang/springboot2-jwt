@@ -1,8 +1,12 @@
 package xiaochen.jwt.common;
 
-public enum  StatusCodeEnum {
+/**
+ * @author chentaikuang
+ */
 
-    SUCCESS(200,"success"),NO_AUTH(400003,"no auth"),NO_AUTH_HEADER(400004,"no auth header");
+public enum StatusCodeEnum {
+
+    SUCCESS(200, "success"), NO_AUTH(400003, "no auth"), NO_AUTH_HEADER(400004, "no auth header"), NO_EXIST_USER(400005, "用户不存在");
 
 
     private int code;
