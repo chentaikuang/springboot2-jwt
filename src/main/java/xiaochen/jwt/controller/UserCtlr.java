@@ -51,6 +51,12 @@ public class UserCtlr {
         logger.info("init default user --------------> {}", userMap);
     }
 
+    /**
+     * http://localhost:8080/user/register
+     * @param userReq
+     * @return
+     * @throws ServletException
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public RespRst register(@RequestBody() UserReq userReq) throws ServletException {
         // save new User
@@ -59,6 +65,12 @@ public class UserCtlr {
         return result;
     }
 
+    /**
+     * http://localhost:8080/user/login
+     * @param userReq
+     * @return
+     * @throws ServletException
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public RespRst login(@Valid @RequestBody() UserReq userReq) throws ServletException {
 
